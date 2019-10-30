@@ -4,25 +4,27 @@ describe('Disciple functions', () => {
     describe('disciple mushrooms mortality', () => {
         it.each(
             [
-                ['Ciri', 1, true],
-                ['Geralt', 3, true],
-                ['Jean-Louis', 4, false],
-                ['Jean-Roger', 10, false]
+                //testing 2 survive 2 expected deaths
+                ['Ciri', 1],
+                ['Geralt', 3], //limit to stay alive
+                ['XxDaRkSaSuKeXx', 4], //limit to die
+                ['Batiste', 10]
             ])(
                 '%s eat mushroom n°%i',
-                (name, numberOfMushroom, isAliveExpected) => {
+                (name, numberOfMushroom) => {
+                    //catch log
                     console.log = jest.fn();
 
-                    let testDisciple = new Disciple(name)
+                    //new guinea pig
+                    const testDisciple = new Disciple(name)
                     testDisciple.mushroomsAte = numberOfMushroom - 1
 
                     testDisciple.eatMushrooms()
 
-                    const actualResult = testDisciple.isStillAlive
-                    expect(actualResult).toBe(isAliveExpected)
                     expect(testDisciple.mushroomsAte).toBe(numberOfMushroom)
+                    expect(testDisciple.isStillAlive).toBe(numberOfMushroom<=3)
 
-                    if (!isAliveExpected) {
+                    if (numberOfMushroom>3) {
                         expect(console.log).toHaveBeenCalledWith(name + ' screams and dies in agony.')
                     }
                 }
@@ -37,7 +39,7 @@ describe('Disciple functions', () => {
             ])(
                 'Training %s session n°%i',
                 (name, TrainingSession, ) => {
-                    let testDisciple = new Disciple(name)
+                    const testDisciple = new Disciple(name)
                     testDisciple.trainingSessions = TrainingSession - 1
 
                     testDisciple.train()
@@ -50,15 +52,16 @@ describe('Disciple functions', () => {
     describe('disciple have been trained', () => {
         it.each(
             [
+                //test 2 trained 3 not trained
                 ['Ciri', 1, 1, true],
                 ['Geralt', 3, 3000, true],
-                ['Jean-Eude', 0, 2, false],
-                ['Jean Guillemin', 2, 0, false],
-                ['Jean-Gabriel', 0, 0, false]
+                ['Kilian', 0, 2, false],
+                ['Dorian', 2, 0, false],
+                ['K3v!n', 0, 0, false]
             ])(
-                'Is %s trained ? Already ate %i mushroom and did %i training session. Spoiler: %s',
+                'Is %s trained ? Expected: %s',
                 (name, mushroomUsed, trainingDone, isTrainedExpected) => {
-                    let testDisciple = new Disciple(name)
+                    const testDisciple = new Disciple(name)
                     testDisciple.mushroomsAte = mushroomUsed
                     testDisciple.trainingSessions = trainingDone
 
