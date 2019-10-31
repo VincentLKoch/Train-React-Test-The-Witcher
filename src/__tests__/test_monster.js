@@ -10,11 +10,11 @@ describe('Monster tests', () => {
                 (monster, expectedHealth, expectedDmg, expectedResistance) => {
                     const testMonster = MonsterFactory(monster)
                     
-                    expect(testMonster.name).toEqual(monster)
-                    expect(testMonster.health).toEqual(expectedHealth)
+                    expect(testMonster.name).toBe(monster)
+                    expect(testMonster.health).toBe(expectedHealth)
                     expect(testMonster.isAlive).toBeTruthy()
-                    expect(testMonster.hitting()).toEqual(expectedDmg)
-                    expect(testMonster.resistance).toEqual(expectedResistance)
+                    expect(testMonster.hitting()).toBe(expectedDmg)
+                    expect(testMonster.resistance).toBe(expectedResistance)
                 })
     })
 
@@ -27,11 +27,30 @@ describe('Monster tests', () => {
                 (monster, expectedHealth, expectedDmg, expectedResistance) => {
                     const testMonster = MonsterFactory(monster)
                     //TODO
-                    expect(testMonster.name).toEqual(monster)
-                    expect(testMonster.health).toEqual(expectedHealth)
+                    expect(testMonster.name).toBe(monster)
+                    expect(testMonster.health).toBe(expectedHealth)
                     expect(testMonster.isAlive).toBeTruthy()
-                    expect(testMonster.hitting()).toEqual(expectedDmg)
-                    expect(testMonster.resistance).toEqual(expectedResistance)
+                    expect(testMonster.hitting()).toBe(expectedDmg)
+                    expect(testMonster.resistance).toBe(expectedResistance)
+                })
+    })
+
+    describe('Incorporeality of the Wraith', () => {
+        it.each(
+            [
+                ['Wraith', false, 8, true],
+                ['Wraith', true, 10, false],
+            ])('Test on Wraith',
+                (monster, initialIncorporeal, expectedHealth, expectedIncorporeal) => {
+                    const testMonster = MonsterFactory(monster)
+
+                    testMonster.isIncorporeal = initialIncorporeal
+
+                    testMonster.gettingHit(2) 
+
+                    expect(testMonster.health).toBe(expectedHealth)
+                    expect(testMonster.isIncorporeal).toBe(expectedIncorporeal)
+
                 })
     })
 })
