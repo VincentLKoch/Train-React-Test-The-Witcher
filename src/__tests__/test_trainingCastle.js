@@ -95,5 +95,28 @@ describe('Castle functions', () => {
                 })
     })
 
+    describe('Become a Witcher', () => {
+        it.each(
+            [
+                [['Ciri'], [3], [5], 1],
+                [['Theodore', 'Geralt'], [0, 42], [32, 0], 0],
+                [['Alexandre', 'Gaby', 'Andy'], [0, 3, 4], [2, 15, 7], 2],
+            ])('%s can be a Witcher... Or not',
+                (name, numberOfMushroom, numberOfTraining, expectedNeWitcher) => {
+                    const kaerMorhen = new TrainingCastle()
+                    for (let i = 0; i < name.length; ++i) {
+                        kaerMorhen.disciples.push(new Disciple(name[i]))
+                        kaerMorhen.disciples[i].mushroomsAte = numberOfMushroom[i]
+                        kaerMorhen.disciples[i].trainingSessions = numberOfTraining[i]
+                    }
+
+                    const numberWitcher = kaerMorhen.acknowledgeDisciples()
+                    const numberDisciple = kaerMorhen.disciples
+
+                    expect(numberWitcher.length).toBe(expectedNeWitcher)   
+                    expect(numberDisciple.length).toBe(name.length-expectedNeWitcher)
+   
+                })
+    })
 
 })
