@@ -27,6 +27,7 @@ class Witcher extends LivingThing {
     return this.efficiency
   }
 
+  //In a function so it can be re-write for special witcher latter.
   putSwordInSheath() { this.currentSword = 'steel' }
 }
 
