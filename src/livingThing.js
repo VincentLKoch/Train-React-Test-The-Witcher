@@ -24,7 +24,7 @@ class LivingThing {
       //I'm attaquing first
       enemy.gettingHit(this.hitting(enemy.resistance))
 
-      //If he survive he attack back
+      //If he don't surrender he attack back
       if (enemy.health >= enemySurrenderAtHealth) {
         this.gettingHit(enemy.hitting(this.resistance))
       }
@@ -32,11 +32,11 @@ class LivingThing {
     } //End battle loop
 
 
-    if (this.health <= iSurrenderAtHealth) { //I won
+    if (this.health <= iSurrenderAtHealth) { //enemy won
       console.log(this.name + ' lose battle against ' + enemy.name)
       if (enemy.currentSword) { enemy.putSwordInSheath() }
 
-    } else if (enemy.health <= enemySurrenderAtHealth) { //enemy won
+    } else if (enemy.health <= enemySurrenderAtHealth) { //I won
       console.log(enemy.name + ' lose battle against ' + this.name)
       if (this.currentSword) { this.putSwordInSheath() }
     }

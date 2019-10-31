@@ -18,23 +18,6 @@ describe('Monster tests', () => {
                 })
     })
 
-    describe('Monster getting hit', () => {
-        it.each(
-            [
-                ['Wraith', 10, 2, 'steel'],
-                ['Fiend', 20, 5, 'steel'],
-            ])('Creation of %s',
-                (monster, expectedHealth, expectedDmg, expectedResistance) => {
-                    const testMonster = MonsterFactory(monster)
-                    //TODO
-                    expect(testMonster.name).toBe(monster)
-                    expect(testMonster.health).toBe(expectedHealth)
-                    expect(testMonster.isAlive).toBeTruthy()
-                    expect(testMonster.hitting()).toBe(expectedDmg)
-                    expect(testMonster.resistance).toBe(expectedResistance)
-                })
-    })
-
     describe('Incorporeality of the Wraith', () => {
         it.each(
             [
