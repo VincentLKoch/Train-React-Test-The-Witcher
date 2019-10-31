@@ -39,7 +39,8 @@ class TrainingCastle {
       }
     }
 
-    this.disciples = stillTrainingDisciples
+    this.disciples = stillTrainingDisciples;
+    return acknowledgedDisciples;
   }
 }
 
