@@ -6,13 +6,13 @@ class LivingThing {
     this.health = health
   }
 
+  hitting() { return 2 }
+
   gettingHit(incomingDamage) {
     this.health = this.health - incomingDamage
     this.isAlive = this.health >= 0
     if (!this.isAlive) { console.log(this.name + ' die with a scream!') }
   }
-
-  hitting() { return 2 }
 
   fightToDeath(enemy) { this.fight(enemy, 0, 0) }
 
@@ -22,33 +22,23 @@ class LivingThing {
     while (this.health > iSurrenderAtHealth && enemy.health > enemySurrenderAtHealth) {
 
       //I'm attaquing first
-      if (currentSword in this) { //If witcher
-        enemy.gettingHit(this.hitting(enemy.resistance))
-      } else {
-        enemy.gettingHit(this.hitting())
-      }
+      enemy.gettingHit(this.hitting(enemy.resistance))
 
       //If he survive he attack back
       if (enemy.health >= enemySurrenderAtHealth) {
-
-        //If witcher
-        if (currentSword in enemy) {
-          this.gettingHit(enemy.hitting(this.resistance))
-        } else {
-          this.gettingHit(enemy.hitting())
-        }
+        this.gettingHit(enemy.hitting(this.resistance))
       }
-      
+
     } //End battle loop
 
 
     if (this.health <= iSurrenderAtHealth) { //I won
       console.log(this.name + ' lose battle against ' + enemy.name)
-      if (currentSword in enemy) { enemy.putSwordInSheath() }
+      if (enemy.currentSword) { enemy.putSwordInSheath() }
 
     } else if (enemy.health <= enemySurrenderAtHealth) { //enemy won
       console.log(enemy.name + ' lose battle against ' + this.name)
-      if (currentSword in this) { this.putSwordInSheath() }
+      if (this.currentSword) { this.putSwordInSheath() }
     }
   } //end fight()
 

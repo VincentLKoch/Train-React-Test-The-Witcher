@@ -96,8 +96,4 @@ describe('Castle functions', () => {
     })
 
 
-
-
-
 })
-        //console.log = jest.fn();
